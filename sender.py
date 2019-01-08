@@ -5,8 +5,10 @@ tick=0
 button_pin = 20
 number=1
 pig = pigpio.pi()
-PRESS_TIME=200
+PRESS_TIME=100
 timestamp_dict=[]
+
+
 def LED_signal(final_lst):
 	time.sleep(1)
 	word=final_lst.get('word')
@@ -27,9 +29,12 @@ def LED_signal(final_lst):
 				pig.write(26,0)
 				time.sleep(0.2)
 		time.sleep(1)
+
+
 def do_short():
 	timestamp=time.time()
 	timestamp_dict.append(timestamp)
+
 
 def do_long():
 	word_ls=[]
