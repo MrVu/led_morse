@@ -65,7 +65,7 @@ def timestamp_handling(times):
 def index_handling(index_lst, word_ls):
 	for n in range(0, len(index_lst), 2):
 		try:
-			word_ls.append({str(index_lst[n + 1] - index_lst[n]): str(index_lst[n + 2] - index_lst[n + 1])})
+			word_ls.append([index_lst[n + 1] - index_lst[n],index_lst[n + 2] - index_lst[n + 1]])
 		except Exception as e:
 			print(e)
 	word_to_send={'word': word_ls, 'received': []}
