@@ -42,7 +42,7 @@ def update_name(name):
 	try:
 		data = db.my_buzzer_data.find_one({'received': {'$nin': [name]}})
 		if data is None:
-			data= 'No more data to query'
+			abort(404)
 		db.my_buzzer_data.update_one({
 			'_id': data['_id']
 		}, {'$push': {
@@ -77,9 +77,11 @@ def send_data():
 		print(request)
 		abort(400)
 	print(request)
+	clean_signal= request.json['word']
+	clean_word = arrayToString(clean_signal) 
 	word_to_send = {
-		'word': request.json['word'],
-		'received': request.json['received']
+		'word': clean_word,
+		'received': []]
 	}
 	print(word_to_send)
 	try:
