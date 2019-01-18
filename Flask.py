@@ -76,7 +76,7 @@ def timestamp_handling(times):
 		if n+1 == len(times):
 			tmp_lst.append(n+1) # n+1 is final index
 			break
-		time_subtract= times[n+1]-times[n]
+		time_subtract= int(times[n+1])-int(times[n])
 		if time_subtract > 500:
 			time_index =  times.index(times[n+1])
 			tmp_lst.append(time_index)
