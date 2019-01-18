@@ -68,15 +68,44 @@ def update_name(name):
 #Handle data array
 def data_handle():
 	pass
+def timestamp_handling(times):
+	tmp_lst=[0]
+	print('tmp_lst')
+	print(tmp_lst)
+	for n in range(0, len(times)):
+		if n+1 == len(times):
+			tmp_lst.append(n+1) # n+1 is final index
+			break
+		time_subtract= times[n+1]-times[n]
+		if time_subtract > 0.5:
+			time_index =  times.index(times[n+1])
+			tmp_lst.append(time_index)
+	return tmp_lst
+
+
+
+def index_handling(index_lst, word_ls):
+	for n in range(0, len(index_lst), 2):
+		try:
+			word_ls.append([index_lst[n + 1] - index_lst[n],index_lst[n + 2] - index_lst[n + 1]])
+		except Exception as e:
+			print(e)
+	word_to_send={'word': word_ls, 'received': []}
+	return word_to_send
+
 
 
 @app.route('/api_1_0/senddata', methods=['POST'])
 def send_data():
-	if not request.json:
+	if not request.data:
 		print('this is the request -------')
 		print(request)
 		abort(400)
-	print(request.json)
+	print(request.data)
+        raw_data = request.data
+        raw_data_lst= raw_data.split('-')
+        print raw_data_lst
+
 	try:
 		data='Post successfully'
 	except Exception as e:
