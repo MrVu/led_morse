@@ -39,7 +39,7 @@ void post_request(String data){
  
    HTTPClient http;    //Declare object of class HTTPClient
  
-   http.begin("http://35.236.172.46:5000/api_1_0/getdata/nodemcu");      //Specify request destination
+   http.begin("http://35.236.172.46:5000/api_1_0/senddata");      //Specify request destination
    http.addHeader("Content-Type", "text/plain");  //Specify content-type header
  
    int httpCode = http.POST(data);   //Send the request
@@ -77,10 +77,10 @@ void loop() {
   
   }
  if((digitalRead(buttonPin) == 1)){
-  if (tick <10){
+  if (tick <50){
     tick=0;
     }
-  else if ((10<tick) and (tick < 500)){
+  else if ((50<tick) and (tick < 800)){
   timeStore();
   tick = 0;
   }
