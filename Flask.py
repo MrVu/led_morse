@@ -77,7 +77,7 @@ def timestamp_handling(times):
 			tmp_lst.append(n+1) # n+1 is final index
 			break
 		time_subtract= times[n+1]-times[n]
-		if time_subtract > 0.5:
+		if time_subtract > 500:
 			time_index =  times.index(times[n+1])
 			tmp_lst.append(time_index)
 	return tmp_lst
@@ -108,6 +108,8 @@ def send_data():
         print raw_data_lst
 
 	try:
+                tmp_lst = timestamp_handling(raw_data_lst)
+                print(tmp_lst)
 		data='Post successfully'
 	except Exception as e:
 		print(e)

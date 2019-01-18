@@ -77,10 +77,10 @@ void loop() {
   
   }
  if((digitalRead(buttonPin) == 1)){
-  if (tick <50){
+  if (tick <70){
     tick=0;
     }
-  else if ((50<tick) and (tick < 800)){
+  else if ((70<tick) and (tick < 800)){
   timeStore();
   tick = 0;
   }
