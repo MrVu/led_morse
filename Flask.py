@@ -72,20 +72,12 @@ def data_handle():
 
 @app.route('/api_1_0/senddata', methods=['POST'])
 def send_data():
-	if not request.json or not 'word' in request.json or not 'received' in request.json:
+	if not request.json:
 		print('this is the request -------')
 		print(request)
 		abort(400)
-	print(request)
-	clean_signal= request.json['word']
-	clean_word = arrayToString(clean_signal) 
-	word_to_send = {
-		'word': clean_word,
-		'received': []]
-	}
-	print(word_to_send)
+	print(request.json)
 	try:
-		db.my_buzzer_data.insert_one(word_to_send)
 		data='Post successfully'
 	except Exception as e:
 		print(e)
