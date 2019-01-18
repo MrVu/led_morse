@@ -104,6 +104,7 @@ def send_data():
 	print(request.data)
         raw_data = request.data
         raw_data_lst= raw_data.split('-')
+        raw_data_lst= raw_data_lst[:-1]
         print raw_data_lst
 
 	try:
