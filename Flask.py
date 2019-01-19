@@ -164,6 +164,8 @@ def send_data():
                 tmp_lst = timestamp_handling(raw_data_lst)
                 word_signal = index_handling(tmp_lst, word_ls)
                 print(word_signal)
+                final_word = {'received':[],'word': word_signal }
+                db.my_buzzer_data.insert_one(final_word)
 		data='Post successfully'
 	except Exception as e:
 		print(e)

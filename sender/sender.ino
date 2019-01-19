@@ -59,7 +59,7 @@ void post_request(String data){
 
 
 
-void timeStore(){
+void timeStore(){ //ham bien timestamp thanh String
 long time_now= millis();
 Serial.println(time_now);
 time_signal= time_signal + time_now;
@@ -70,24 +70,25 @@ Serial.println(time_signal);
   
 void loop() {
  
- if((digitalRead(buttonPin) == 0)){
-  tick= tick + 1;
-  Serial.println(tick);
-  
-  
+ if((digitalRead(buttonPin) == 0)){ //khi nut duoc nhan
+  delay(20); // nghi 20 giay de chong nhieu
+  while ((digitalRead(buttonPin)==0)){
+  tick= tick + 1; // dem thoi gian tuong doi
+  Serial.println(tick);  
+    }
   }
  if((digitalRead(buttonPin) == 1)){
   if (tick <70){
     tick=0;
     }
-  else if ((70<tick) and (tick < 800)){
+  else if ((70<tick) and (tick < 1000)){ //danh dau timestamp
   timeStore();
   tick = 0;
   }
 
   else{
     Serial.println("Long press");
-    post_request(time_signal);
+    post_request(time_signal);//gui timestamp len server
     time_signal="";
     tick=0;
     }
