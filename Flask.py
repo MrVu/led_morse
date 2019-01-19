@@ -89,8 +89,9 @@ def index_handling(index_lst, word_ls):
 		try:
 			word_ls.append([index_lst[n + 1] - index_lst[n],index_lst[n + 2] - index_lst[n + 1]])
 		except Exception as e:
-			print(e)
-	word_to_send={'word': word_ls, 'received': []}
+        			print(e)
+        for signal in word_ls:
+            word_to_send= arrayToString(word_ls)
 	return word_to_send
 
 
