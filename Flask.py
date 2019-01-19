@@ -21,7 +21,7 @@ def arrayToString(word_ls):
                     current_word = current_word + 'a'
                 elif word_ls[n] == [1,4]:
                     current_word = current_word + 'd'
-                elif word_ls[n] == [1,3]:
+                elif word_ls[n] == [1,2]:
                     current_word = current_word + 'b'
                 elif word_ls[n] == [2,1]:
                     current_word = current_word + 'f'
