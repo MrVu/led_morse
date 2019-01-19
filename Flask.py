@@ -111,7 +111,7 @@ def send_data():
 	try:
                 tmp_lst = timestamp_handling(raw_data_lst)
                 word_signal = index_handling(tmp_lst, word_ls)
-                print(tmp_lst)
+                print(word_signal)
 		data='Post successfully'
 	except Exception as e:
 		print(e)
