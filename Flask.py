@@ -150,16 +150,12 @@ def index_handling(index_lst, word_ls):
 @app.route('/api_1_0/senddata', methods=['POST'])
 def send_data():
         word_ls=[]
-	if not request.data:
-		print('this is the request -------')
-		print(request)
+	if not request.data: #neu khong co data
 		abort(400)
 	print(request.data)
         raw_data = request.data
         raw_data_lst= raw_data.split('-')
-        raw_data_lst= raw_data_lst[:-1]
-        print raw_data_lst
-
+        raw_data_lst= raw_data_lst[:-1]#bo gia tri trong o cuoi list
 	try:
                 tmp_lst = timestamp_handling(raw_data_lst)
                 word_signal = index_handling(tmp_lst, word_ls)
