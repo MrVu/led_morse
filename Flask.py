@@ -15,10 +15,58 @@ def arrayToString(word_ls):
 	current_word=""
 	#for key, value in tap_code_ls.items():
 	for n in range(0, len(word_ls)):
-		if word_ls[n] == [3,1]:
+		if word_ls[n] == [1,3]:
 		    current_word = current_word + 'c'
                 elif word_ls[n]== [1,1]:
                     current_word = current_word + 'a'
+                elif word_ls[n] == [1,4]:
+                    current_word = current_word + 'd'
+                elif word_ls[n] == [1,3]:
+                    current_word = current_word + 'b'
+                elif word_ls[n] == [2,1]:
+                    current_word = current_word + 'f'
+                elif word_ls[n] == [1,5]:
+                    current_word = current_word + 'e'
+                elif word_ls[n] == [2,2]:
+                    current_word = current_word + 'g'
+                elif word_ls[n] == [2,3]:
+                    current_word = current_word + 'h'
+                elif word_ls[n] == [2,4]:
+                    current_word = current_word + 'i'
+                elif word_ls[n] == [2,5]:
+                    current_word = current_word + 'j'
+                elif word_ls[n] == [3,1]:
+                    current_word = current_word + 'l'
+                elif word_ls[n] == [3,2]:
+                    current_word = current_word + 'm'
+                elif word_ls[n] == [3,3]:
+                    current_word = current_word + 'n'
+                elif word_ls[n] == [3,4]:
+                    current_word = current_word + 'o'
+                elif word_ls[n] == [3,5]:
+                    current_word = current_word + 'p'
+                elif word_ls[n] == [4,1]:
+                    current_word = current_word + 'q'
+                elif word_ls[n] == [4,2]:
+                    current_word = current_word + 'r'
+                elif word_ls[n] == [4,4]:
+                    current_word = current_word + 't'
+                elif word_ls[n] == [4,3]:
+                    current_word = current_word + 's'
+                elif word_ls[n] == [4,5]:
+                    current_word = current_word + 'u'
+                elif word_ls[n] == [5,1]:
+                    current_word = current_word + 'v'
+                elif word_ls[n] == [5,2]:
+                    current_word = current_word + 'w'
+                elif word_ls[n] == [5,3]:
+                    current_word = current_word + 'x'
+                elif word_ls[n] == [5,4]:
+                    current_word = current_word + 'y'
+                elif word_ls[n] == [5,5]:
+                    current_word = current_word + 'z'
+                else:
+                    current_word = current_word + " "
                 print(current_word)
 	return current_word
 
