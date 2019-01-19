@@ -71,7 +71,7 @@ Serial.println(time_signal);
 void loop() {
  
  if((digitalRead(buttonPin) == 0)){ //khi nut duoc nhan
-  delay(20); // nghi 20 giay de chong nhieu
+  delay(20); // nghi 20 mili giay de chong nhieu
   while ((digitalRead(buttonPin)==0)){
   tick= tick + 1; // dem thoi gian tuong doi
   Serial.println(tick);  
