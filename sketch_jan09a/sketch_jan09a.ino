@@ -152,7 +152,6 @@ void json_handle(String payload){
 
 void post_request(){
    if(WiFi.status()== WL_CONNECTED){   //Check WiFi connection status
- 
    HTTPClient http;    //Declare object of class HTTPClient
  
    http.begin("http://35.236.172.46:5000/api_1_0/getdata/nodemcu");      //Specify request destination
@@ -176,6 +175,7 @@ void post_request(){
   
   void send_request(){
    if (WiFi.status() == WL_CONNECTED) { //Check WiFi connection status
+    //String link = "http://35.236.172.46:5000/api_1_0/getdata/" + macToStr;
  
     HTTPClient http;  //Declare an object of class HTTPClient
  
@@ -199,8 +199,12 @@ void post_request(){
 void loop() {
  
  if((digitalRead(buttonPin) == 0)){
-  tick= tick + 1;
+  delay(20);
+  while((digitalRead(buttonPin) == 0)){
+    tick= tick + 1;
   Serial.println(tick);
+  
+    }
   
   
   }
@@ -214,6 +218,7 @@ void loop() {
   }
 
   else{
+    
     post_request();
     send_request();
     tick=0;
