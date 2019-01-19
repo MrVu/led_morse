@@ -97,6 +97,7 @@ def index_handling(index_lst, word_ls):
 
 @app.route('/api_1_0/senddata', methods=['POST'])
 def send_data():
+        word_ls=[]
 	if not request.data:
 		print('this is the request -------')
 		print(request)
@@ -109,6 +110,7 @@ def send_data():
 
 	try:
                 tmp_lst = timestamp_handling(raw_data_lst)
+                word_signal = index_handling(tmp_lst, word_ls)
                 print(tmp_lst)
 		data='Post successfully'
 	except Exception as e:
