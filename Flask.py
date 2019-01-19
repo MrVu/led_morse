@@ -17,6 +17,7 @@ def arrayToString(word_ls):
 		for n in range(0, len(word_ls)):
 			if word_ls[n] == value:
 				current_word = current_word + key
+                                print(current_word)
 	return current_word
 
 
