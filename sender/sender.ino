@@ -1,24 +1,14 @@
 #include <ESP8266WiFi.h>
 #include <ESP8266HTTPClient.h>
-#include <ESP8266WebServer.h>
-#include <ESP8266mDNS.h>
-#include <ESP8266HTTPUpdateServer.h>
+
 
 //khai bao bien
-const char* host = "esp8266-webupdate";
-const char* update_path = "/firmware";
-const char* update_username = "admin";
-const char* update_password = "Vu1781991";
 const char* ssid = "ahihi";
 const char* password = "phongbui97";
-#define buttonPin 14
-#define LED 12
+#define buttonPin 5
+#define LED 4
 int tick = 0;
 String time_signal = "";
-
-//Server http update
-ESP8266WebServer httpServer(80);
-ESP8266HTTPUpdateServer httpUpdater;
 
 
 
@@ -33,16 +23,6 @@ void setup () {
     delay(1000);
     Serial.print("Connecting..");
   }
-  // In địa chỉ IP
-  Serial.print("IP address: ");
-  Serial.println(WiFi.localIP());
-  MDNS.begin(host);
-  // Tạo server
-  httpUpdater.setup(&httpServer, update_path, update_username, update_password);
-  httpServer.begin();
-
-  MDNS.addService("http", "tcp", 80);
-  Serial.printf("HTTPUpdateServer ready! Open http://%s.local%s in your browser and login with username '%s' and password '%s'\n", host, update_path, update_username, update_password);
 
 }
 
@@ -82,7 +62,6 @@ void timeStore() {
 
 
 void loop() {
-  httpServer.handleClient();
   if ((digitalRead(buttonPin) == 0)) { //khi nut duoc nhan
     delay(20); // nghi 20 mili giay de chong nhieu
     while ((digitalRead(buttonPin) == 0)) {

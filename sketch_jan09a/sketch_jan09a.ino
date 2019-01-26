@@ -1,15 +1,11 @@
 #include <ESP8266WiFi.h>
 #include <ESP8266HTTPClient.h>
 #include <ArduinoJson.h>
-#include <ESP8266WebServer.h>
 #include <ESP8266mDNS.h>
-#include <ESP8266HTTPUpdateServer.h>
+#include <WiFiUdp.h>
+#include <ArduinoOTA.h>
 
 //khai bao bien
-const char* host = "esp8266-webupdate";
-const char* update_path = "/firmware";
-const char* update_username = "admin";
-const char* update_password = "Vu1781991";
 const char* ssid = "ahihi";
 const char* password = "phongbui97";
 #define buttonPin 5
@@ -17,9 +13,7 @@ const char* password = "phongbui97";
 int tick = 0;
 String clientName = "";
 
-//Server http update
-ESP8266WebServer httpServer(80);
-ESP8266HTTPUpdateServer httpUpdater;
+
 
 
 //Ham xuat tin hieu ra cong LED
@@ -40,17 +34,7 @@ void playLed(int first, int second) {
   delay(1000);
 }
 
-//Mac address to String
-String macToStr(const uint8_t* mac)
-{
-  String result;
-  for (int i = 0; i < 6; ++i) {
-    result += String(mac[i], 16);
-    if (i < 5)
-      result += ':';
-  }
-  return result;
-}
+
 
 void charToSig(char character) {
   if (character == 'a') {
@@ -139,35 +123,50 @@ void setup () {
   pinMode(LED, OUTPUT);
   Serial.begin(115200);
 
-  //Get client Name
-  clientName += "ESP8266-";
-  uint8_t mac[6];
-  WiFi.macAddress(mac);
-  clientName += macToStr(mac);
-  clientName += "-";
-  clientName += String(micros() & 0xff, 16);
-  Serial.println(clientName);
-
-  //connect to wifi
+    //connect to wifi
   WiFi.begin(ssid, password);
   while (WiFi.status() != WL_CONNECTED) {
 
     delay(1000);
-    Serial.print("Connecting..");
-  }
+    Serial.print("Connecting...");
+  }//end connect wifi
 
-  // In địa chỉ IP
+  //Get client Name
+  clientName += "ESP8266-";
+  uint8_t mac[6];
+  String macAdd = String(WiFi.macAddress());
+  Serial.println(macAdd);
+  clientName += macAdd;
+  Serial.println(clientName);
+  //end get client name
+
+
+
+  //Arduino OTA update
+  ArduinoOTA.onStart([]() {
+    Serial.println("Start");
+  });
+  ArduinoOTA.onEnd([]() {
+    Serial.println("\nEnd");
+  });
+  ArduinoOTA.onProgress([](unsigned int progress, unsigned int total) {
+    Serial.printf("Progress: %u%%\r", (progress / (total / 100)));
+  });
+  ArduinoOTA.onError([](ota_error_t error) {
+    Serial.printf("Error[%u]: ", error);
+    if (error == OTA_AUTH_ERROR) Serial.println("Auth Failed");
+    else if (error == OTA_BEGIN_ERROR) Serial.println("Begin Failed");
+    else if (error == OTA_CONNECT_ERROR) Serial.println("Connect Failed");
+    else if (error == OTA_RECEIVE_ERROR) Serial.println("Receive Failed");
+    else if (error == OTA_END_ERROR) Serial.println("End Failed");
+  });
+  ArduinoOTA.begin();
+  Serial.println("Ready");
   Serial.print("IP address: ");
   Serial.println(WiFi.localIP());
-  MDNS.begin(host);
-  // Tạo server
-  httpUpdater.setup(&httpServer, update_path, update_username, update_password);
-  httpServer.begin();
+  //end arduino ota update
 
-  MDNS.addService("http", "tcp", 80);
-  Serial.printf("HTTPUpdateServer ready! Open http://%s.local%s in your browser and login with username '%s' and password '%s'\n", host, update_path, update_username, update_password);
-}
-
+}//end setup
 
 //Handling JSON type server response
 void json_handle(String payload) {
@@ -241,8 +240,7 @@ void send_request() {
 
 
 void loop() {
-  httpServer.handleClient();
-
+  ArduinoOTA.handle();
   if ((digitalRead(buttonPin) == 0)) {
     //chong rung bang delay 20ms
     delay(20);
